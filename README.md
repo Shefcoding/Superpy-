@@ -27,7 +27,7 @@ In order to sell a product. The following arguments are needed: product_name and
 
 ***Report inventory***
 
-In order to report the inventory. The following can be used: now, yesterday, date or all. The arguments correspond to what time frame you would like to report the inventory. Using the all argument displays the inventory on all time frames. These are examples of how the command line can be used. 
+In order to report the inventory. The inventory only displays products that the supermarket offers. All products that are sold are removed from the inventory. In order to track the sold products, the sold.csv file can be used.  The following can be used: now, yesterday, date or all. The arguments correspond to what time frame you would like to report the inventory. Using the all argument displays the inventory on all time frames. These are examples of how the command line can be used. 
 > python main.py report_inventory --now
 > python main.py report_inventory --yesterday
 > python main.py report_inventory --date 2022-09-08
@@ -63,8 +63,9 @@ Using this command charts all the different types of products in  your inventory
 
 ***Advance time***
 
-Using this command advances the time in the program. This is an example of how this command can be used. 
+Using this command advances the time in the program. You can also go back to the date today.  This is an example of how this command can be used. 
 >  python main.py advance_time --time 1 
+>  python main.py advance_time --today
 
 ***CSV to JSON***
 
