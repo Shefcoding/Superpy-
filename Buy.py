@@ -51,9 +51,9 @@ def buy_product(name, price, expiration_date):
 
                 #add product to inventory   
             with open('inventory.csv', 'a', newline = '') as inventory_file:        
-                    fieldnames_inventory = ['product_name','count', 'buy_price', 'expiration_date', 'buy_date']
+                    fieldnames_inventory = ['product_name','Product_id', 'buy_price', 'expiration_date', 'buy_date']
                     writer_inventory = csv.DictWriter(inventory_file, fieldnames=fieldnames_inventory)
-                    writer_inventory.writerow({'product_name': name,'count': count,'buy_price': price, 'expiration_date': expiration_date, 'buy_date': todays_date})
+                    writer_inventory.writerow({'product_name': name,'Product_id': count,'buy_price': price, 'expiration_date': expiration_date, 'buy_date': todays_date})
                     inventory_file.close()
         else:
             print("Product is expired")
@@ -76,10 +76,10 @@ def buy_product(name, price, expiration_date):
 
             #create inventory file
             with open('inventory.csv', 'w', newline = '') as inventory_file:
-                fieldnames_inventory = ['product_name','count', 'buy_price', 'expiration_date', 'buy_date']
+                fieldnames_inventory = ['product_name','Product_id', 'buy_price', 'expiration_date', 'buy_date']
                 writer_inventory = csv.DictWriter(inventory_file, fieldnames=fieldnames_inventory)
                 writer_inventory.writeheader()
-                writer_inventory.writerow({'product_name': name,'count': count,'buy_price': price, 'expiration_date': expiration_date, 'buy_date': todays_date})
+                writer_inventory.writerow({'product_name': name,'Product_id': count,'buy_price': price, 'expiration_date': expiration_date, 'buy_date': todays_date})
                 inventory_file.close()
 
 

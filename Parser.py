@@ -7,27 +7,37 @@ from chart import chart_products, chart_all
 import os
 from datetime import timedelta, datetime
 
-def advance_time(time):
+def advance_time(time, today):
 
     if os.path.exists('./date.txt'):
         # if date file already exists, read the date from file and advance the time 
         with open('date.txt') as f:
             line = f.readline()
-    
-        todays_date = datetime.strptime(line, '%Y-%m-%d').date()
-        result = todays_date + timedelta(time) 
-        result = result.strftime('%Y-%m-%d')
-        print(f'The time is advanced from {todays_date} to {result} ')
+        if today == 'today':
+                result = datetime.today() 
+                result = result.strftime('%Y-%m-%d')
+                print(f'The time today is {datetime.today()} ')
+        else:
+                todays_date = datetime.strptime(line, '%Y-%m-%d').date()
+                result = todays_date + timedelta(time) 
+                result = result.strftime('%Y-%m-%d')
+                print(f'The time is advanced from {todays_date} to {result} ')
     else:
-        #if file doesn't exist use todays date to advance the time
-        result = datetime.today() + timedelta(time) 
-        result = result.strftime('%Y-%m-%d')
-        print(f'The time is advanced from {datetime.today()} to {result} ')
-
+        if today == 'today':
+                #if file doesn't exist use todays date to advance the time
+                result = datetime.today() 
+                result = result.strftime('%Y-%m-%d')
+                print(f'The time today is {datetime.today()} ')
+        else:
+                              #if file doesn't exist use todays date to advance the time
+                result = datetime.today() + timedelta(time) 
+                result = result.strftime('%Y-%m-%d')
+                print(f'The time is advanced from {datetime.today()} to {result} ')  
 
     datetime_file = open('date.txt', 'w')
     datetime_file.write(result)
-    datetime_file.close()          
+    datetime_file.close()  
+         
 
 def parser_all():
       # Create the parser
@@ -92,6 +102,7 @@ def parser_all():
     #parser for "advance time" command
     parser_sell = subparsers.add_parser('advance_time', help = "Advance time in your text file")
     parser_sell.add_argument('--time',  type=int, help = "Fill in how many days you would like to advance time. 1= one day, 2 = two days etc")
+    parser_sell.add_argument('--today', action='store_const', const='today', help = "Go back to the date today")
     parser_sell.set_defaults(func=advance_time)
 
     args = parser.parse_args()
@@ -107,7 +118,7 @@ def parser_all():
     elif args.command == "report_profit":
             report_profit(args.date, args.now, args.yesterday)
     elif args.command == "advance_time":
-            advance_time(args.time)
+            advance_time(args.time, args.today)
     elif args.command == "chart_products":
             chart_products(args.product_name1, args.product_name2, args.product_name3, args.product_name4, args.product_name5)
     elif args.command == "chart_all":
